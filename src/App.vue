@@ -1,12 +1,13 @@
 <template>
-  <From :model="model"></From>
-  <HelloWorld msg="Hello Vue 3 + TypeScript + Vite" />
+  <From :model="model">
+    <FormItem label="用户名" prop="username">formItem</FormItem>
+  </From>
 </template>
 
 <script setup lang="ts">
 import { reactive } from "@vue/reactivity";
-import HelloWorld from "comps/HelloWorld.vue";
 import From from './components/Form.vue'
+import FormItem from './components/FormItem.vue'
 
 const model = reactive({
     username: 'coboy'
