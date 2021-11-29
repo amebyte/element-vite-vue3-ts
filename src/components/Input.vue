@@ -4,7 +4,8 @@
     </div>
 </template>
 
-<script setup lang="ts">
+<script setup lang="ts">import { emitter } from '../composables/useEmitter'
+
     defineProps({
         modelValue: {
             type: String,
@@ -22,5 +23,7 @@
     function onInput(e: Event) {
         const inp = e.target as HTMLInputElement
         emit("update:model-value", inp.value)
+        // 通知FormItem校验
+        emitter.emit('validate')
     }
 </script>
