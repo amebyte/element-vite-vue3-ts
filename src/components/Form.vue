@@ -5,13 +5,20 @@
 </template>
 
 <script setup lang="ts">
-import { PropType } from '@vue/runtime-core';
+import { PropType, provide } from '@vue/runtime-core';
 import { Rules } from 'async-validator'
+import { key } from './types';
 
 // 定义属性
-defineProps({
+const props = defineProps({
     model: { type: Object, required: true },
     rules: { type: Object as PropType<Rules> },
+})
+
+// 提供后代model和rules
+provide(key, {
+    model: props.model,
+    rules: props.rules
 })
 
 // 定义输出

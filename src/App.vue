@@ -1,5 +1,5 @@
 <template>
-  <From :model="model">
+  <From :model="model" :rules="rules">
     <FormItem label="用户名" prop="username">
         <Input v-model="model.username"></Input>
     </FormItem>
@@ -15,6 +15,12 @@ import Input from './components/Input.vue'
 
 const model = reactive({
     username: 'coboy'
+})
+
+const rules = reactive({
+    username: [{
+        required: true, message: '用户名为必填项'
+    }]
 })
 </script>
 

@@ -9,14 +9,16 @@
 </template>
 
 <script setup lang="ts">
-    import { onMounted, ref } from 'vue';
+import { inject, onMounted, ref } from 'vue';
+import Schema from 'async-validator';
 import { emitter } from '../composables/useEmitter';
+import { key } from './types';
 
     interface Props {
         label?: string,
         prop?: string
     }
-    withDefaults(defineProps<Props>(), { label: '', prop: ''})
+    const props = withDefaults(defineProps<Props>(), { label: '', prop: ''})
     // 错误信息
     const error = ref('')
 
@@ -28,8 +30,28 @@ import { emitter } from '../composables/useEmitter';
         })
     })
 
+    // 监听校验
+    const formData = inject(key)
+
+    // 获取校验值和规则
     function validate() {
-        console.log('validate')
+        if(formData?.rules === undefined) {
+            return Promise.resolve({ result: true })
+        }
+
+        // 获取值和规则
+        const rules = formData.rules[props.prop]
+        const value = formData.model[props.prop]
+
+        const schema = new Schema({ [props.prop]: rules })
+        return schema.validate({ [props.prop]: value }, errors => {
+            if(errors) {
+                // 校验失败
+                error.value = errors[0].message || '校验错误'
+            } else {
+                error.value = ''
+            }
+        })
     }
 
 </script>
