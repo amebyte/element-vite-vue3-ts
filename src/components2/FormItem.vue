@@ -13,5 +13,6 @@ interface Props {
   props?: string;
 }
 withDefaults(defineProps<Props>(), { label: "", props: "" });
+// 错误
 const error = ref("");
 </script>

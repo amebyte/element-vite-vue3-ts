@@ -1,6 +1,7 @@
 module.exports = {
   root: true,
   env: {
+    "vue/setup-compiler-macros": true,
     browser: true,
     es2021: true,
     node: true,
@@ -19,6 +20,5 @@ module.exports = {
   rules: {
     "no-unused-vars": "off",
     "@typescript-eslint/no-unused-vars": "off",
-    "no-undef": "off",
   },
 };
