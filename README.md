@@ -25,3 +25,5 @@ npm i mitt -S
 事件的监听和派发，典型的观察者模式
 
 provide inject 单向数据流
+
+
