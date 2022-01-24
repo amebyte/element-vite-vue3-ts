@@ -11,11 +11,13 @@
 
 <script setup lang="ts">
 import { reactive } from "@vue/reactivity";
-import { ref } from "vue";
+import { ref, getCurrentInstance } from "vue";
 import Form from "./components2/Form.vue";
 import FormItem from "./components2/FormItem.vue";
 import Input from "./components2/Input.vue";
 import { FormType } from "./components2/types";
+// const { proxy } = getCurrentInstance() as any;
+// console.log("ctx", proxy, proxy.$test);
 const model = reactive({
   username: "coboy",
 });
