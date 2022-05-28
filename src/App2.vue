@@ -31,7 +31,10 @@ const rules = reactive({
 });
 watchEffect(() => {
   const s = model.username;
-  model.username = "cccc";
+  setInterval(() => {
+    model.username = "cccc";
+  }, 1000);
+
   console.log("变化了");
 });
 const loginForm = ref<FormType>();
