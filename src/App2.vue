@@ -30,6 +30,7 @@ const rules = reactive({
   ],
 });
 watchEffect(() => {
+  const s = model.username;
   model.username = "cccc";
   console.log("变化了");
 });
