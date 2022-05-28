@@ -11,7 +11,7 @@
 
 <script setup lang="ts">
 import { reactive } from "@vue/reactivity";
-import { ref, getCurrentInstance } from "vue";
+import { ref, getCurrentInstance, watchEffect } from "vue";
 import Form from "./components2/Form.vue";
 import FormItem from "./components2/FormItem.vue";
 import Input from "./components2/Input.vue";
@@ -28,6 +28,10 @@ const rules = reactive({
       message: "用户名为必填项",
     },
   ],
+});
+watchEffect(() => {
+  model.username = "cccc";
+  console.log("变化了");
 });
 const loginForm = ref<FormType>();
 function onLogin() {
