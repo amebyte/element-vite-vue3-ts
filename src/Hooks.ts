@@ -1,4 +1,4 @@
-import { getCurrentInstance } from "vue";
+import { getCurrentInstance, nextTick } from "vue";
 
 const HookLayout = /*    */ 0b010;
 const HookPassive = /*   */ 0b100;
@@ -58,7 +58,7 @@ export function useReducer(reducer: any, initalState: any) {
   }
   const dispatch = (action: any) => {
     hook.memorizedState = reducer(hook.memorizedState, action);
-    scheduleUpdateOnFiber(currentlyRenderingFiber);
+    nextTick(() => currentlyRenderingFiber.update());
   };
 
   return [hook.memorizedState, dispatch];
