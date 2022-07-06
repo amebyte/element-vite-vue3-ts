@@ -65,12 +65,11 @@ export function useReducer(reducer: any, initalState: any) {
       currentlyRenderingFiber
     );
     nextTick(() => {
-      console.log("nextTick");
       currentlyRenderingFiber.update();
     });
   };
 
-  return [hook.memorizedState, dispatch];
+  return [hook, dispatch];
 }
 
 function updateEffectImp(hookFlags: any, create: any, deps: any) {
