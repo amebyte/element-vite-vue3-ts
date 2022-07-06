@@ -8,7 +8,7 @@ let workInProgressHook: any = null;
 let currentHook: any = null;
 
 export function renderHooks(wip: any) {
-  currentlyRenderingFiber = getCurrentInstance();
+  currentlyRenderingFiber = wip;
   currentlyRenderingFiber.memorizedState = null;
   currentlyRenderingFiber.updateQueueOfEffect = [];
   currentlyRenderingFiber.updateQueueOfLayoutEffect = [];
@@ -51,6 +51,7 @@ function updateWorkInProgressHook() {
 }
 
 export function useReducer(reducer: any, initalState: any) {
+  if (!currentlyRenderingFiber) renderHooks(getCurrentInstance());
   const hook = updateWorkInProgressHook();
 
   if (!currentlyRenderingFiber.alternate) {
@@ -58,7 +59,15 @@ export function useReducer(reducer: any, initalState: any) {
   }
   const dispatch = (action: any) => {
     hook.memorizedState = reducer(hook.memorizedState, action);
-    nextTick(() => currentlyRenderingFiber.update());
+    console.log(
+      "hook.memorizedState",
+      hook.memorizedState,
+      currentlyRenderingFiber
+    );
+    nextTick(() => {
+      console.log("nextTick");
+      currentlyRenderingFiber.update();
+    });
   };
 
   return [hook.memorizedState, dispatch];

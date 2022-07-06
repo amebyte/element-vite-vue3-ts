@@ -6,18 +6,22 @@
     </FormItem>
     <FormItem><button @click.prevent="onLogin">登录</button></FormItem>
   </Form>
-  <p>{{ model }}</p>
+  <p @click="() => setCount1()">{{ count1 }}=={{ model }}</p>
 </template>
 
 <script setup lang="ts">
 import { reactive } from "@vue/reactivity";
-import { ref, getCurrentInstance, watchEffect } from "vue";
+import { ref, getCurrentInstance, watchEffect, onUpdated } from "vue";
 import Form from "./components2/Form.vue";
 import FormItem from "./components2/FormItem.vue";
 import Input from "./components2/Input.vue";
 import { FormType } from "./components2/types";
+import { useReducer } from "./Hooks";
 // const { proxy } = getCurrentInstance() as any;
 // console.log("ctx", proxy, proxy.$test);
+
+const [count1, setCount1] = useReducer((x) => x + 1, 0);
+onUpdated(() => console.log("onUpdate", count1));
 const model = reactive({
   username: "coboy",
 });
