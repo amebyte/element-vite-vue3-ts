@@ -6,7 +6,7 @@
     </FormItem>
     <FormItem><button @click.prevent="onLogin">登录</button></FormItem>
   </Form>
-  <p @click="() => setCount1()">{{ count1.value }}=={{ model }}</p>
+  <p @click="() => setCount1()">{{ count1.memorizedState }}=={{ model }}</p>
 </template>
 
 <script setup lang="ts">
