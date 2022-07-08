@@ -7,6 +7,8 @@
     <FormItem><button @click.prevent="onLogin">登录</button></FormItem>
   </Form>
   <p @click="() => setCount1()">{{ count1.memorizedState }}=={{ model }}</p>
+  <p @click="() => setCount2()">{{ count2.memorizedState }}=={{ model }}</p>
+  <!-- <FunctionalComponent level="攻城师"></FunctionalComponent> -->
 </template>
 
 <script setup lang="ts">
@@ -16,12 +18,24 @@ import Form from "./components2/Form.vue";
 import FormItem from "./components2/FormItem.vue";
 import Input from "./components2/Input.vue";
 import { FormType } from "./components2/types";
-import { useReducer } from "./Hooks";
+// import FunctionalComponent from "./FunctionalComponent ";
+import { useReducer, useEffect, useLayoutEffect } from "./Hooks";
 // const { proxy } = getCurrentInstance() as any;
 // console.log("ctx", proxy, proxy.$test);
 
 const [count1, setCount1] = useReducer((x) => x + 1, 0);
-onUpdated(() => console.log("onUpdate", count1));
+const [count2, setCount2] = useReducer((x) => x + 1, 1);
+
+// useEffect(() => {
+//   console.log("useEffect", count2.memorizedState);
+// }, [count2]);
+
+// useLayoutEffect(() => {
+//   console.log("useLayoutEffect", count2.memorizedState);
+// }, [count2]);
+
+// onUpdated(() => console.log("onUpdate", count1));
+onUpdated(() => console.log("onUpdatedonUpdated"));
 const model = reactive({
   username: "coboy",
 });

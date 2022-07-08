@@ -56,14 +56,14 @@ export function useReducer(reducer: any, initalState: any) {
 
   if (!currentlyRenderingFiber.alternate) {
     hook.memorizedState = initalState;
+    // nextTick(() => {
+    //   currentlyRenderingFiber.alternate = currentlyRenderingFiber;
+    // });
   }
   const dispatch = (action: any) => {
+    console.log("hook.memorizedState", hook.memorizedState);
     hook.memorizedState = reducer(hook.memorizedState, action);
-    console.log(
-      "hook.memorizedState",
-      hook.memorizedState,
-      currentlyRenderingFiber
-    );
+    console.log("memorizedState", hook.memorizedState);
     nextTick(() => {
       currentlyRenderingFiber.update();
     });
@@ -108,7 +108,7 @@ export function areHookInputsEqual(nextDeps: any, prevDeps: any) {
   }
 
   for (let i = 0; i < prevDeps.length && i < nextDeps.length; i++) {
-    if (Object.is(nextDeps[i], prevDeps[i])) {
+    if (Object.is(nextDeps[i].memorizedState, prevDeps[i].memorizedState)) {
       continue;
     }
     return false;
