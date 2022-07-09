@@ -6,7 +6,14 @@ const FunctionalComponent = (props: any, context: any) => {
   console.log(context, getCurrentInstance());
   const [count1, setCount1] = useReducer((x: any) => x + 1, 0);
   const [count2, setCount2] = useReducer((x: any) => x + 1, 1);
-  //   context.slots = `你好${props.level}, count1:${count1}`;
+
+  useEffect(() => {
+    console.log("useEffect", count2);
+  }, [count2]);
+
+  useLayoutEffect(() => {
+    console.log("useLayoutEffect", count2);
+  }, [count2]);
 
   return (
     <>

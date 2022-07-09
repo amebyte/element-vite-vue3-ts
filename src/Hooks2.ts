@@ -9,6 +9,7 @@ let currentHook: any = null;
 
 function scheduleUpdateOnFiber(wip: any) {
   currentlyRenderingFiber.alternate = { ...currentlyRenderingFiber };
+  invokeHooks(wip);
   renderHooks(wip);
   currentlyRenderingFiber.update();
 }
@@ -116,4 +117,19 @@ export function areHookInputsEqual(nextDeps: any, prevDeps: any) {
     return false;
   }
   return true;
+}
+
+function invokeHooks(wip: any) {
+  const { updateQueueOfEffect, updateQueueOfLayoutEffect } = wip;
+  for (let i = 0; i < updateQueueOfLayoutEffect.length; i++) {
+    const effect = updateQueueOfLayoutEffect[i];
+    effect.create();
+  }
+
+  for (let i = 0; i < updateQueueOfEffect.length; i++) {
+    const effect = updateQueueOfEffect[i];
+    nextTick(() => {
+      effect.create();
+    });
+  }
 }
