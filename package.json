@@ -20,7 +20,7 @@
     "mitt": "^3.0.0",
     "mockjs": "^1.1.0",
     "vue": "^3.2.23",
-    "vue-hooks-api": "^0.0.0-beta.1"
+    "vue-hooks-api": "^0.0.0-beta.3"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.12.17",

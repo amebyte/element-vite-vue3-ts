@@ -6861,10 +6861,10 @@ vue-eslint-parser@^8.0.0:
     lodash "^4.17.21"
     semver "^7.3.5"
 
-vue-hooks-api@^0.0.0-beta.1:
-  version "0.0.0-beta.1"
-  resolved "https://registry.npmmirror.com/vue-hooks-api/-/vue-hooks-api-0.0.0-beta.1.tgz#fe7adc3bbc4191018ad5b57ed567853972940601"
-  integrity sha512-9Ac1NRXb3ryUcpMpIk6wq8Gy17YUHkwCCHG0+3dyjr5pXFWwOeq+EDRdtbz7aQE+Fhmq+KcjVo4/3nUktpAHdg==
+vue-hooks-api@^0.0.0-beta.3:
+  version "0.0.0-beta.3"
+  resolved "https://registry.npmmirror.com/vue-hooks-api/-/vue-hooks-api-0.0.0-beta.3.tgz#32ad18d8a83047dbea718fa66c0434c936231cd7"
+  integrity sha512-DstG0vaLRjScG7kBeNlb7EY1zkK4cbj3p+bO7+9+grDGxaGsBzwe0U0dqtxsyyTDx86ESqh+JlyAkqmJZI/18Q==
 
 vue-jest@^5.0.0-alpha.7:
   version "5.0.0-alpha.10"
