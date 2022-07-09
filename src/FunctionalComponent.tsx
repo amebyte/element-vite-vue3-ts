@@ -1,4 +1,3 @@
-import { h, getCurrentInstance } from "vue";
 import { useReducer, useEffect, useLayoutEffect } from "vue-hooks-api";
 
 // Vue3 中函数式组件只能用函数式声明
