@@ -1,4 +1,4 @@
-import { getCurrentInstance, nextTick } from "vue";
+import { getCurrentInstance, nextTick, watchEffect } from "vue";
 
 const HookLayout = /*    */ 0b010;
 const HookPassive = /*   */ 0b100;
@@ -9,7 +9,6 @@ let currentHook: any = null;
 
 function scheduleUpdateOnFiber(wip: any) {
   currentlyRenderingFiber.alternate = { ...currentlyRenderingFiber };
-  invokeHooks(wip);
   renderHooks(wip);
   currentlyRenderingFiber.update();
 }
@@ -23,8 +22,9 @@ function renderHooks(wip: any) {
 }
 
 function updateWorkInProgressHook() {
+  if (!currentlyRenderingFiber) renderHooks(getCurrentInstance());
+
   const current = currentlyRenderingFiber.alternate;
-  console.log("current", current);
   let hook;
   if (current) {
     // 组件更新，在老hook的基础上更新
@@ -59,16 +59,13 @@ function updateWorkInProgressHook() {
 }
 
 export function useReducer(reducer: any, initalState: any) {
-  if (!currentlyRenderingFiber) renderHooks(getCurrentInstance());
   const hook = updateWorkInProgressHook();
 
   if (!currentlyRenderingFiber.alternate) {
     hook.memorizedState = initalState;
   }
   const dispatch = (action: any) => {
-    console.log("hook.memorizedState", hook.memorizedState);
     hook.memorizedState = reducer(hook.memorizedState, action);
-    console.log("memorizedState", hook.memorizedState);
     scheduleUpdateOnFiber(currentlyRenderingFiber);
   };
 
@@ -90,11 +87,7 @@ function updateEffectImp(hookFlags: any, create: any, deps: any) {
   const effect = { hookFlags, create, deps };
   hook.memorizedState = effect;
 
-  if (hookFlags & HookPassive) {
-    currentlyRenderingFiber.updateQueueOfEffect.push(effect);
-  } else if (hookFlags & HookLayout) {
-    currentlyRenderingFiber.updateQueueOfLayoutEffect.push(effect);
-  }
+  invokeHooks(hookFlags, hook);
 }
 
 export function useEffect(create: any, deps: any) {
@@ -111,7 +104,7 @@ export function areHookInputsEqual(nextDeps: any, prevDeps: any) {
   }
 
   for (let i = 0; i < prevDeps.length && i < nextDeps.length; i++) {
-    if (Object.is(nextDeps[i].memorizedState, prevDeps[i].memorizedState)) {
+    if (Object.is(nextDeps[i], prevDeps[i])) {
       continue;
     }
     return false;
@@ -119,17 +112,10 @@ export function areHookInputsEqual(nextDeps: any, prevDeps: any) {
   return true;
 }
 
-function invokeHooks(wip: any) {
-  const { updateQueueOfEffect, updateQueueOfLayoutEffect } = wip;
-  for (let i = 0; i < updateQueueOfLayoutEffect.length; i++) {
-    const effect = updateQueueOfLayoutEffect[i];
-    effect.create();
-  }
-
-  for (let i = 0; i < updateQueueOfEffect.length; i++) {
-    const effect = updateQueueOfEffect[i];
-    nextTick(() => {
-      effect.create();
-    });
+function invokeHooks(hookFlags: any, hook: any) {
+  if (hookFlags & HookPassive) {
+    watchEffect(hook.memorizedState.create, { flush: "post" });
+  } else if (hookFlags & HookLayout) {
+    watchEffect(hook.memorizedState.create, { flush: "pre" });
   }
 }
