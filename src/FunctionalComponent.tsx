@@ -1,0 +1,24 @@
+import { h, getCurrentInstance } from "vue";
+import { useReducer, useEffect, useLayoutEffect } from "./Hooks2";
+
+// Vue3 中函数式组件只能用函数式声明
+const FunctionalComponent = (props: any, context: any) => {
+  console.log(context, getCurrentInstance());
+  const [count1, setCount1] = useReducer((x: any) => x + 1, 0);
+  const [count2, setCount2] = useReducer((x: any) => x + 1, 1);
+  //   context.slots = `你好${props.level}, count1:${count1}`;
+
+  return (
+    <>
+      <button onClick={() => setCount1()} {...props}>
+        count1:{count1}
+      </button>
+      <button onClick={() => setCount2()} {...props}>
+        count2:{count2}
+      </button>
+    </>
+  );
+};
+
+FunctionalComponent.props = ["level"];
+export default FunctionalComponent;

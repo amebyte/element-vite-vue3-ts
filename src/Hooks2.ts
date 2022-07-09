@@ -7,7 +7,13 @@ let currentlyRenderingFiber: any = null;
 let workInProgressHook: any = null;
 let currentHook: any = null;
 
-export function renderHooks(wip: any) {
+function scheduleUpdateOnFiber(wip: any) {
+  currentlyRenderingFiber.alternate = { ...currentlyRenderingFiber };
+  renderHooks(wip);
+  currentlyRenderingFiber.update();
+}
+
+function renderHooks(wip: any) {
   currentlyRenderingFiber = wip;
   currentlyRenderingFiber.memorizedState = null;
   currentlyRenderingFiber.updateQueueOfEffect = [];
@@ -17,6 +23,7 @@ export function renderHooks(wip: any) {
 
 function updateWorkInProgressHook() {
   const current = currentlyRenderingFiber.alternate;
+  console.log("current", current);
   let hook;
   if (current) {
     // 组件更新，在老hook的基础上更新
@@ -56,20 +63,15 @@ export function useReducer(reducer: any, initalState: any) {
 
   if (!currentlyRenderingFiber.alternate) {
     hook.memorizedState = initalState;
-    // nextTick(() => {
-    //   currentlyRenderingFiber.alternate = currentlyRenderingFiber;
-    // });
   }
   const dispatch = (action: any) => {
     console.log("hook.memorizedState", hook.memorizedState);
     hook.memorizedState = reducer(hook.memorizedState, action);
     console.log("memorizedState", hook.memorizedState);
-    nextTick(() => {
-      currentlyRenderingFiber.update();
-    });
+    scheduleUpdateOnFiber(currentlyRenderingFiber);
   };
 
-  return [hook, dispatch];
+  return [hook.memorizedState, dispatch];
 }
 
 function updateEffectImp(hookFlags: any, create: any, deps: any) {

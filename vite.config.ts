@@ -2,6 +2,7 @@ import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
 import { resolve } from "path";
 import { viteMockServe } from "vite-plugin-mock";
+import vueJsx from "@vitejs/plugin-vue-jsx";
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -21,5 +22,5 @@ export default defineConfig({
       comps: resolve("./src/components"),
     },
   },
-  plugins: [vue(), viteMockServe({})],
+  plugins: [vue(), vueJsx(), viteMockServe({})],
 });
