@@ -20,7 +20,13 @@ function renderHooks(wip: any) {
 }
 
 function updateWorkInProgressHook() {
-  if (!currentlyRenderingFiber) renderHooks(getCurrentInstance());
+  const instance = getCurrentInstance() as any;
+  if (
+    !currentlyRenderingFiber ||
+    currentlyRenderingFiber.uid !== instance.uid
+  ) {
+    renderHooks(instance);
+  }
 
   const current = currentlyRenderingFiber.alternate;
   let hook;
