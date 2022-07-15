@@ -1,5 +1,7 @@
 <template>
   <FunctionalComponent level="攻城师"></FunctionalComponent>
+  <br />
+  <br />
   <FunctionalComponent2 level="攻城师"></FunctionalComponent2>
 </template>
 

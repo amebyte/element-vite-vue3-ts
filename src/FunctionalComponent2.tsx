@@ -1,9 +1,12 @@
 import { getCurrentInstance } from "vue";
-import { useState, useReducer, useEffect, useLayoutEffect } from "./Hooks2";
+import {
+  useState,
+  useReducer,
+  useEffect,
+  useLayoutEffect,
+} from "vue-hooks-api";
 
-// Vue3 中函数式组件只能用函数式声明
 const FunctionalComponent2 = (props: any, context: any) => {
-  console.log("getCurrentInstance2()", getCurrentInstance());
   const [count1, setCount1] = useState(0);
   const [count2, setCount2] = useReducer((x: any) => x + 1, 1);
   const [count3, setCount3] = useReducer((x: any) => x + 1, 2);
@@ -31,5 +34,4 @@ const FunctionalComponent2 = (props: any, context: any) => {
   );
 };
 
-FunctionalComponent2.props = ["level"];
 export default FunctionalComponent2;
