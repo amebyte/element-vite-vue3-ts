@@ -1,8 +1,9 @@
 <template>
   <FunctionalComponent level="攻城师"></FunctionalComponent>
   <br />
-  <span>{{ state.name }}</span
-  ><span>{{ count }}</span>
+  <span>{{ state.name }}</span>
+  <span>{{ count }}</span>
+  <cobyte></cobyte>
   <br />
   <FunctionalComponent2 level="攻城师"></FunctionalComponent2>
 </template>
