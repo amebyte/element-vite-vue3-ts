@@ -2,16 +2,16 @@ import { InjectionKey } from "@vue/runtime-core";
 import { Rules, Values } from "async-validator";
 
 export type FormData = {
-    model: Record<string, unknown>
-    rules?: Rules
-}
+  model: Record<string, unknown>;
+  rules?: Rules;
+};
 
 export type FormItem = {
-    validate: () => Promise<Values>
-}
+  validate: () => Promise<Values>;
+};
 
 export type Form = {
-    validate: (cb:(isValid:boolean) => void) => void
-}
+  validate: (cb: (isValid: boolean) => void) => void;
+};
 
-export const key: InjectionKey<FormData> = Symbol('form-data')
+export const key: InjectionKey<FormData> = Symbol("form-data");

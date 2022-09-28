@@ -1,9 +1,9 @@
-import mitt from 'mitt'
-import { FormItem } from '../components/types'
+import mitt from "mitt";
+import { FormItem } from "../components/types";
 
 export type Events = {
-    validate: undefined,
-    addFormItem: FormItem
-}
+  validate: undefined;
+  addFormItem: FormItem;
+};
 
-export const emitter = mitt<Events>()
+export const emitter = mitt<Events>();

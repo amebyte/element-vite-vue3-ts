@@ -1,6 +1,8 @@
 import { createApp } from "vue";
-import App from "./App2.vue";
+import App from "./App3.vue";
 import "./index.css";
+import { MyKeepAlive } from "./component3";
 const app = createApp(App);
-app.config.globalProperties.$test = "test";
+app.component("MyKeepAlive", MyKeepAlive);
+// app.config.globalProperties.$test = "test";
 app.mount("#app");

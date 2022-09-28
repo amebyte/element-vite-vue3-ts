@@ -1,7 +1,7 @@
 <template>
-  <From :model="model" :rules="rules" ref="loginForm">
+  <From ref="loginForm" :model="model" :rules="rules">
     <FormItem label="用户名" prop="username">
-        <Input v-model="model.username"></Input>
+      <Input v-model="model.username"></Input>
     </FormItem>
     <FormItem><button @click.prevent="onLogin">登录</button></FormItem>
   </From>
@@ -11,28 +11,31 @@
 <script setup lang="ts">
 import { reactive } from "@vue/reactivity";
 import { ref } from "vue";
-import From from './components/Form.vue'
-import FormItem from './components/FormItem.vue'
-import Input from './components/Input.vue'
+import From from "./components/Form.vue";
+import FormItem from "./components/FormItem.vue";
+import Input from "./components/Input.vue";
 import { Form } from "./components/types";
 
 const model = reactive({
-    username: 'coboy'
-})
+  username: "coboy",
+});
 
 const rules = reactive({
-    username: [{
-        required: true, message: '用户名为必填项'
-    }]
-})
+  username: [
+    {
+      required: true,
+      message: "用户名为必填项",
+    },
+  ],
+});
 
 // 获取表单实例
-const loginForm = ref<Form>()
+const loginForm = ref<Form>();
 
 function onLogin() {
-    loginForm.value?.validate(isValid => {
-        console.log('isValid', isValid)
-    })
+  loginForm.value?.validate((isValid) => {
+    console.log("isValid", isValid);
+  });
 }
 </script>
 
